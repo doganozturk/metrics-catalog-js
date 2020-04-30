@@ -1,6 +1,6 @@
 # MetricsCatalog.js
 
-[![CircleCI](https://circleci.com/gh/doganozturk/metrics-catalog-js/tree/master.svg?style=shield&circle-token=cd068c8a9e6f1b5093de193726ef3b4eb1d4a0cb)](https://circleci.com/gh/doganozturk/metrics-catalog-js/tree/master) [![npm](https://img.shields.io/npm/v/metrics-catalog-js.svg)](https://www.npmjs.com/package/metrics-catalog-js)
+[![CircleCI](https://circleci.com/gh/doganozturk/metrics-catalog-js/tree/master.svg?style=shield&circle-token=cd068c8a9e6f1b5093de193726ef3b4eb1d4a0cb)](https://circleci.com/gh/doganozturk/metrics-catalog-js/tree/master) [![npm](https://img.shields.io/npm/v/metrics-catalog-js.svg)](https://www.npmjs.com/package/metrics-catalog-js) [![minzipped size](https://badgen.net/bundlephobia/minzip/metrics-catalog-js)](https://badgen.net/bundlephobia/minzip/metrics-catalog-js)
 
 `metrics-catalog-js` is a tiny analytics library for collecting performance data such as TTFB, FCB etc.
 
@@ -10,7 +10,7 @@
 - Works in all modern browsers.
 - Sends those performance metrics to our API.
 - Can be used in any web application.
-- Small size < 2KB Gzipped.
+- Small size < 1KB Gzipped.
 
 ## Installation
 - If you are using NPM: ```npm install metrics-catalog-js```
