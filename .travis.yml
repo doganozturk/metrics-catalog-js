@@ -10,9 +10,9 @@ before_deploy:
 - npm run build
 deploy:
   provider: npm
-  email: NPM_EMAIL
+  email: "NPM_EMAIL"
   api_key:
-    secure: NPM_TOKEN
+    secure: "NPM_TOKEN"
   on:
     tags: true
     repo: doganozturk/metrics-catalog-js
