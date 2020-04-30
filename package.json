@@ -1,6 +1,6 @@
 {
     "name": "metrics-catalog-js",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "description": "Metrics Catalog is a small web analytics tool to measure your client-side performance metrics.",
     "main": "dist/metrics-catalog.js",
     "module": "dist/metrics-catalog.es.js",
