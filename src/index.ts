@@ -20,7 +20,7 @@ type MetricsCatalogValues = {
 };
 
 export default class MetricsCatalog {
-    private static readonly URL = `${process.env.API_URL}`;
+    private static readonly URL = 'http://httpbin.org/anything';
     private values: MetricsCatalogValues;
 
     constructor(public options: MetricsCatalogOptions) {
