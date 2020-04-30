@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+import injectProcessEnv from 'rollup-plugin-inject-process-env';
 import typescript from 'rollup-plugin-typescript2';
 import pkg from './package.json';
 import { terser } from 'rollup-plugin-terser';
@@ -26,6 +27,9 @@ export default {
     plugins: [
         typescript({
             typescript: require('typescript'),
+        }),
+        injectProcessEnv({
+            API_URL: process.env.API_URL,
         }),
         terser(),
     ],
