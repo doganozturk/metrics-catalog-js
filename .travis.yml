@@ -1,18 +1,19 @@
 language: node_js
 node_js:
-    - 12
+- 12
 install:
-    - npm install
+- npm install
 script:
-    - npm run lint:all
-    - npm run test
+- npm run lint:all
+- npm run test
 before_deploy:
-    - npm run build
+- npm run build
 deploy:
-    provider: npm
-    email: NPM_EMAIL
-    api_key: NPM_TOKEN
-    cleanup: true
-    on:
-        branch: master
-        tags: true
+  provider: npm
+  email: doganozturk2005@gmail.com
+  api_key:
+    secure: EX3UxMFpwxxDhKWCF/IETTDaqvdnvpBjG0Pj3iRTphXPqq2V0vF8RQwxHfAzcITWIwgiZG3IzcufBMkGQY5ptA+C1qFsmvnrAgRbXIZzvATaKgsU7rjGsrNWXZrc1sA8jZk6h/tad2UX7jSbsW+6EPsVuM55DfZrUE4CcHZwDMpBigTvF7FXR5zrJA0iwgs3bu15uc6HJeB9bYdr53FIwmVGak2pa3qD2IMLtSwjWEtMApMafBXhjuC0Xg8X3PaQ5iTOYo5wb/8htM1WFlsqbp+/yEVsc2vQ6W62aTUlLBPS69g5wv5sOpddE0sXlifisPa776SLEk/cHW9RLLQ5d8f5VVuL+SrUaFWgkqN+XD2dxP7Ini0F7cI9N+OjCAdHQ+I05me1BQJkRCfjz2qmygnlQHqgPuSnuyN5x2ItEPRowRyMYkvvRSQLIdoLQKDUyHXYs9jydOUH/2++1ohyKajqM69Fj39rWM9WPYqEO4MYqhLcxneou0Gjqc95XQAMMPta0bXEy5WFizbfiCxhCxMzaBHFDixugISfa5myag/3fW4Vkb4rwuY8oK4ILZKc2+Fw7o3e7Oi96bLGfS0Z52E/I7CscAWnRoNuM6lWISqXMCAfQ7nJR0Ly2bzOh5i+vbOIVhAd5Nl7vDr5jptQTS/gwrnsZ8FnccbH5cVU9MQ=
+  on:
+    tags: true
+    repo: doganozturk/metrics-catalog-js
+  skip_cleanup: 'true'
