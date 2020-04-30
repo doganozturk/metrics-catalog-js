@@ -1,6 +1,9 @@
+import dotenv from 'dotenv';
 import typescript from 'rollup-plugin-typescript2';
 import pkg from './package.json';
 import { terser } from 'rollup-plugin-terser';
+
+dotenv.config();
 
 export default {
     input: 'src/index.ts',

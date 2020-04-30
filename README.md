@@ -13,7 +13,7 @@
 - Small size < 2KB Gzipped.
 
 ## Installation
-- If you are using NPM: ```npm install @doganozturk/metrics-catalog-js```
+- If you are using NPM: ```npm install metrics-catalog-js```
 - You can also include the script directly. Just download the script from the [dist folder](https://github.com/doganozturk/metrics-catalog-js/tree/master/dist).
 
 ## Get started

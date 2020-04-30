@@ -7,7 +7,10 @@
         "outDir": "./dist",
         "target": "es2015",
         "skipLibCheck": true,
-        "types": ["jest"]
+        "types": [
+            "jest",
+            "node"
+        ]
     },
     "include": [
         "src/index.ts"
