@@ -17,3 +17,5 @@ deploy:
     tags: true
     repo: doganozturk/metrics-catalog-js
   skip_cleanup: 'true'
+deploy-api_key:
+  secure: NPM_TOKEN
