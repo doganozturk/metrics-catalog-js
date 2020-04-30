@@ -1,6 +1,6 @@
 {
     "name": "metrics-catalog-js",
-    "version": "1.0.0",
+    "version": "1.0.18",
     "description": "Metrics Catalog is a small web analytics tool to measure your client-side performance metrics.",
     "main": "dist/metrics-catalog.js",
     "module": "dist/metrics-catalog.es.js",
@@ -32,6 +32,7 @@
         "prettier": "^2.0.5",
         "rimraf": "^3.0.2",
         "rollup": "^2.7.3",
+        "rollup-plugin-inject-process-env": "^1.2.0",
         "rollup-plugin-terser": "^5.3.0",
         "rollup-plugin-typescript2": "^0.27.0",
         "ts-jest": "^25.4.0",
