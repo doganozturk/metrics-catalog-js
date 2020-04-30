@@ -4,50 +4,64 @@ type MetricsCatalogOptions = {
 
 type MetricsCatalogValuesResource = {
     name: string;
-    requestStart: number;
-    responseEnd: number;
-    startTime: number;
+    requestStart: DOMHighResTimeStamp;
+    responseEnd: DOMHighResTimeStamp;
+    startTime: DOMHighResTimeStamp;
 };
 
 type MetricsCatalogValues = {
     host: string;
     date: Date;
-    ttfb: number;
-    fcp: number;
-    domContentLoaded: number;
-    windowLoaded: number;
+    ttfb: DOMHighResTimeStamp;
+    fcp: DOMHighResTimeStamp;
+    domContentLoaded: DOMHighResTimeStamp;
+    windowLoaded: DOMHighResTimeStamp;
     resources: MetricsCatalogValuesResource[];
 };
 
 export default class MetricsCatalog {
-    private url = 'http://httpbin.org/anything';
+    private static readonly URL = 'http://httpbin.org/anything';
     private values: MetricsCatalogValues;
 
-    constructor(public options: MetricsCatalogOptions) {}
+    constructor(public options: MetricsCatalogOptions) {
+        if (
+            !options ||
+            typeof options !== 'object' ||
+            typeof options.host !== 'string' ||
+            !options.host ||
+            !options.host.trim().length
+        ) {
+            throw new Error('You must provide a valid host option!');
+        }
+    }
 
     public init(): void {
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const metrics = this.collectMetrics();
 
-                this.postMetrics(metrics);
+                MetricsCatalog.postMetrics(metrics);
             }, 500);
         });
     }
 
-    private static getNavigationRelatedMetrics(): {
-        ttfb: number;
-        domContentLoaded: number;
-        windowLoaded: number;
+    private static getNavigationMetrics(): {
+        ttfb: DOMHighResTimeStamp;
+        domContentLoaded: DOMHighResTimeStamp;
+        windowLoaded: DOMHighResTimeStamp;
     } {
+        // https://developer.mozilla.org/en-US/docs/Web/Performance/Navigation_and_resource_timings
         const navigationEntries: PerformanceNavigationTiming = window.performance.getEntriesByType(
             'navigation',
         )[0] as PerformanceNavigationTiming;
 
         const ttfb =
             navigationEntries.responseStart - navigationEntries.requestStart;
-        const domContentLoaded = navigationEntries.domContentLoadedEventEnd;
-        const windowLoaded = navigationEntries.loadEventEnd;
+        const domContentLoaded =
+            navigationEntries.domContentLoadedEventEnd -
+            navigationEntries.domContentLoadedEventStart;
+        const windowLoaded =
+            navigationEntries.loadEventEnd - navigationEntries.loadEventStart;
 
         return {
             ttfb,
@@ -56,7 +70,7 @@ export default class MetricsCatalog {
         };
     }
 
-    private static getPaintRelatedMetrics(): {
+    private static getResourceMetrics(): {
         resources: MetricsCatalogValuesResource[];
     } {
         const resourceEntries: PerformanceEntryList = window.performance.getEntriesByType(
@@ -76,7 +90,8 @@ export default class MetricsCatalog {
         };
     }
 
-    private static getResourceRelatedMetrics(): { fcp: number } {
+    private static getPaintMetrics(): { fcp: DOMHighResTimeStamp } {
+        // https://developer.mozilla.org/en-US/docs/Web/API/PerformancePaintTiming
         const paintEntry: PerformanceEntry = window.performance
             .getEntriesByType('paint')
             .filter(
@@ -93,14 +108,14 @@ export default class MetricsCatalog {
         return {
             host: this.options.host,
             date: new Date(),
-            ...MetricsCatalog.getPaintRelatedMetrics(),
-            ...MetricsCatalog.getResourceRelatedMetrics(),
-            ...MetricsCatalog.getNavigationRelatedMetrics(),
+            ...MetricsCatalog.getPaintMetrics(),
+            ...MetricsCatalog.getResourceMetrics(),
+            ...MetricsCatalog.getNavigationMetrics(),
         };
     }
 
-    private postMetrics(metrics: MetricsCatalogValues): Promise<void> {
-        return fetch(this.url, {
+    private static postMetrics(metrics: MetricsCatalogValues): Promise<void> {
+        return fetch(MetricsCatalog.URL, {
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',
