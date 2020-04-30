@@ -5,12 +5,12 @@ install:
     - npm install
 script:
     - npm run build
-    - npm run lint
+    - npm run lint:all
     - npm run test
 deploy:
     provider: npm
-    email: "$NPM_EMAIL"
-    api_key: "$NPM_TOKEN"
+    email: $NPM_EMAIL
+    api_key: $NPM_TOKEN
     cleanup: true
     on:
         branch: master
