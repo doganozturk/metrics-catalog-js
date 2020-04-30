@@ -1,6 +1,6 @@
 # MetricsCatalog.js
 
-[![Build Status](https://travis-ci.com/doganozturk/metrics-catalog-js.svg?branch=master)](https://travis-ci.com/doganozturk/metrics-catalog-js)
+[![CircleCI](https://circleci.com/gh/doganozturk/metrics-catalog-js/tree/master.svg?style=shield&circle-token=cd068c8a9e6f1b5093de193726ef3b4eb1d4a0cb)](https://circleci.com/gh/doganozturk/metrics-catalog-js/tree/master) [![npm](https://img.shields.io/npm/v/metrics-catalog-js.svg)](https://www.npmjs.com/package/metrics-catalog-js)
 
 `metrics-catalog-js` is a tiny analytics library for collecting performance data such as TTFB, FCB etc.
 
