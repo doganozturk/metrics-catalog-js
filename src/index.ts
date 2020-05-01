@@ -20,7 +20,8 @@ type MetricsCatalogValues = {
 };
 
 export default class MetricsCatalog {
-    private static readonly URL = 'http://httpbin.org/anything';
+    private static readonly URL =
+        'https://metrics-catalog-api.herokuapp.com/metrics';
     private values: MetricsCatalogValues;
 
     constructor(public options: MetricsCatalogOptions) {
