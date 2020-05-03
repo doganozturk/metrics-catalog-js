@@ -1,4 +1,7 @@
+import * as dotenv from 'dotenv';
 import MetricsCatalog from '../src/index';
+
+dotenv.config();
 
 describe('Object initialization', () => {
     test('it should initialize', () => {
