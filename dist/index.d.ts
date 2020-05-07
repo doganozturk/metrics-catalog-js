@@ -7,6 +7,7 @@ export default class MetricsCatalog {
     private values;
     constructor(options: MetricsCatalogOptions);
     init(): void;
+    private static validateOptions;
     private static getNavigationMetrics;
     private static getResourceMetrics;
     private static getPaintMetrics;

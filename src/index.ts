@@ -25,18 +25,24 @@ export default class MetricsCatalog {
     private values: MetricsCatalogValues;
 
     constructor(public options: MetricsCatalogOptions) {
-        if (
-            !options ||
-            typeof options !== 'object' ||
-            typeof options.host !== 'string' ||
-            !options.host ||
-            !options.host.trim().length
-        ) {
+        if (!MetricsCatalog.validateOptions(options)) {
             throw new Error('You must provide a valid host option!');
         }
     }
 
     public init(): void {
+        if (
+            !window.PerformanceNavigationTiming ||
+            !window.PerformanceResourceTiming ||
+            // https://github.com/Microsoft/TypeScript/issues/25461
+            // @ts-ignore
+            !window.PerformancePaintTiming
+        ) {
+            throw new Error(
+                "Your browser doesn't support some or all of these APIS: PerformanceNavigationTiming, PerformanceResourceTiming, PerformancePaintTiming.",
+            );
+        }
+
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const metrics = this.collectMetrics();
@@ -44,6 +50,22 @@ export default class MetricsCatalog {
                 MetricsCatalog.postMetrics(metrics);
             }, 500);
         });
+    }
+
+    private static validateOptions(options: MetricsCatalogOptions): boolean {
+        if (!options || typeof options !== 'object') {
+            return false;
+        }
+
+        if (
+            !options.host ||
+            typeof options.host !== 'string' ||
+            !options.host.trim().length
+        ) {
+            return false;
+        }
+
+        return true;
     }
 
     private static getNavigationMetrics(): {
