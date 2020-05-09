@@ -22,7 +22,6 @@ type MetricsCatalogValues = {
 export default class MetricsCatalog {
     // @ts-ignore
     private static readonly URL: string = process.env.API_URL;
-    private values: MetricsCatalogValues;
 
     constructor(public options: MetricsCatalogOptions) {
         if (!MetricsCatalog.validateOptions(options)) {
@@ -32,6 +31,7 @@ export default class MetricsCatalog {
 
     public init(): void {
         if (
+            typeof window.navigator.sendBeacon !== 'function' ||
             !window.PerformanceNavigationTiming ||
             !window.PerformanceResourceTiming ||
             // https://github.com/Microsoft/TypeScript/issues/25461
@@ -43,12 +43,10 @@ export default class MetricsCatalog {
             );
         }
 
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const metrics = this.collectMetrics();
+        window.addEventListener('unload', () => {
+            const metrics = this.collectMetrics();
 
-                MetricsCatalog.postMetrics(metrics);
-            }, 500);
+            MetricsCatalog.postMetrics(metrics);
         });
     }
 
@@ -137,18 +135,12 @@ export default class MetricsCatalog {
         };
     }
 
-    private static postMetrics(metrics: MetricsCatalogValues): Promise<void> {
-        return fetch(MetricsCatalog.URL, {
-            method: 'POST',
-            mode: 'cors',
-            cache: 'no-cache',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(metrics),
-        })
-            .then((response) => response.json())
-            .then(console.log)
-            .catch((err) => console.error(err));
+    private static postMetrics(metrics: MetricsCatalogValues): boolean {
+        return navigator.sendBeacon(
+            MetricsCatalog.URL,
+            new Blob([JSON.stringify(metrics)], {
+                type: 'text/plain',
+            }),
+        );
     }
 }
